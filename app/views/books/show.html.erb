@@ -1,11 +1,11 @@
 <div class= "container">
   <div class= "row mt-3">
-    <div class= "col-3" >
+    <div class= "col-md-3" >
       <%= render 'info', user: @user %>
       <%= render 'new', book: @book %>
     </div>
 
-    <div class= "col-7">
+    <div class= "col-md-8 offset-md-1">
     <h2>Book detail</h2>
     <table class= "table">
       <tbody>
@@ -24,16 +24,21 @@
           <td>
             <%= @book_show.body %>
           </td>
-          <td>
-            <%= link_to edit_book_path(@book_show) do %>
-              <button type="button" class="btn btn-success">Edit</button>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to book_path(@book_show), method: :delete, "data-confirm"=>"本当に消しますか？" do %>
-              <button type="button" class="btn btn-danger">Destroy</button>
-            <% end %>
-          </td>
+          <% if @book_show.user == current_user %>
+            <td>
+              <%= link_to edit_book_path(@book_show) do %>
+                <button type="button" class="btn btn-success">Edit</button>
+              <% end %>
+            </td>
+            <td>
+                <%= link_to book_path(@book_show), method: :delete, "data-confirm"=>"本当に消しますか？" do %>
+                  <button type="button" class="btn btn-danger">Destroy</button>
+                <% end %>
+            </td>
+          <% else %>
+            <td></td>
+            <td></td>
+          <% end %>
         </tr>
       </tbody>
     </table>
